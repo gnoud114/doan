@@ -1,8 +1,8 @@
-import * as authService from '../services/insert'
+import * as insertService from '../services/insert'
 
 export const insert = async (req, res) => {
     try {
-        const response = await authService.insertService(req.body);
+        const response = await insertService.insertService(req.body);
         return res.status(200).json(response);
         
     } catch (error) {

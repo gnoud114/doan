@@ -2,7 +2,7 @@ import db from "../models";
 import bcrypt from "bcryptjs";
 import { v4 } from "uuid";
 import chothuecanho from "../../data/chothuecanho.json";
-import generateCode from "../ultis/generateCode";
+import generateCode from "../utils/generateCode";
 require("dotenv").config();
 const dataBody = chothuecanho.body;
 
