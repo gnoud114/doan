@@ -1,18 +1,18 @@
 import React, { memo } from "react";
 
-const InputForm = ({ label, value, setValue, type, invalidFields, setInvalidFields }) => {
+const InputForm = ({ label, value, setValue, keyPayload, invalidFields, setInvalidFields, type }) => {
   return (
     <div>
-        <label htmlFor="phone" className="text-xs">{label}</label>
+        <label htmlFor={keyPayload} className="text-xs">{label}</label>
         <input 
-            type="text" 
-            id="phone" 
+            type={type || "text"} 
+            id={keyPayload} 
             className="outline-none bg-[#e8f0fe] p-2 rounded-md w-full"
             value ={value}
-            onChange={(e) => setValue(prev => ({...prev, [type]: e.target.value}))}
-            onFocus={() => setInvalidFields(prev => prev.filter(i => i.name !== type))}
+            onChange={(e) => setValue(prev => ({...prev, [keyPayload]: e.target.value}))}
+            onFocus={() => setInvalidFields(prev => prev.filter(i => i.name !== keyPayload))}
         />
-        {invalidFields.length > 0 && invalidFields.some(i => i.name === type) && <small className='text-red-500 italic' >{invalidFields.find(i => i.name === type)?.message}</small>}
+        {invalidFields.length > 0 && invalidFields.some(i => i.name === keyPayload) && <small className='text-red-500 italic' >{invalidFields.find(i => i.name === keyPayload)?.message}</small>}
     </div>
   );
 }

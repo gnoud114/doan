@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { InputForm, Button } from "../../components";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn } = useSelector(state => state.auth);
+  const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
   const [isRegister, setIsRegister] = useState(location.state?.flag);
   const [invalidFields, setInvalidFields] = useState([]);
   const [payload, setPayload] = useState({
@@ -16,25 +17,44 @@ const Login = () => {
     password: "",
     name: "",
   });
+  const validationShownRef = useRef(false);
 
+  //chuyển đổi login <-> register
   useEffect(() => {
     setIsRegister(location.state?.flag ?? false);
   }, [location]);
 
+  //loggedin => home
   useEffect(() => {
-    isLoggedIn && navigate('/')
+    isLoggedIn && navigate("/");
   }, [isLoggedIn]);
 
+  //hiện thông báo lỗi khi điền form
+  useEffect(() => {
+    if (invalidFields.length > 0 && !validationShownRef.current) {
+      Swal.fire('Lỗi!', invalidFields[0]?.message, 'error');
+      validationShownRef.current = true; // ✅ Mark as shown
+    } else if (invalidFields.length === 0) {
+      validationShownRef.current = false; // ✅ Reset when cleared
+    }
+  }, [invalidFields]);
+
   const handleSubmit = async () => {
-    let finalPayload = isRegister ? payload : {
+    setInvalidFields([]);
+    validationShownRef.current = false;
+    let finalPayload = isRegister
+      ? payload
+      : {
           phone: payload.phone,
           password: payload.password,
         };
     let invalids = validate(finalPayload);
     // console.log(invalids);
-    if (invalids === 0) isRegister ? dispatch(actions.register(payload)) : dispatch(actions.login(payload));
+    if (invalids === 0)
+      isRegister
+        ? dispatch(actions.register(payload))
+        : dispatch(actions.login(payload));
   };
-
 
   const validate = (payload) => {
     let invalids = 0;
@@ -98,7 +118,7 @@ const Login = () => {
             label={"HỌ TÊN"}
             value={payload.name}
             setValue={setPayload}
-            type={"name"}
+            keyPayload={"name"}
           />
         )}
         <InputForm
@@ -107,7 +127,7 @@ const Login = () => {
           label={"SỐ ĐIỆN THOẠI"}
           value={payload.phone}
           setValue={setPayload}
-          type={"phone"}
+          keyPayload={"phone"}
         />
         <InputForm
           setInvalidFields={setInvalidFields}
@@ -115,7 +135,8 @@ const Login = () => {
           label={"MẬT KHẨU"}
           value={payload.password}
           setValue={setPayload}
-          type={"password"}
+          keyPayload={"password"}
+          type="password"
         />
         <Button
           text={isRegister ? "Đăng ký" : "Đăng nhập"}

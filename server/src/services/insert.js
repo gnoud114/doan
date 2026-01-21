@@ -2,15 +2,16 @@ import db from "../models";
 import bcrypt from "bcryptjs";
 import { v4 } from "uuid";
 import chothuecanho from "../../data/chothuecanho.json";
+import chothuematbang from '../../data/chothuematbang.json'
+import nhachothue from '../../data/nhachothue.json'
+import chothuephongtro from '../../data/chothuephongtro.json'
 import generateCode from "../utils/generateCode";
 require("dotenv").config();
-const dataBody = chothuecanho.body;
+const dataBody = chothuephongtro.body;
 
-const hashPassword = (password) =>
-  bcrypt.hashSync(password, bcrypt.genSaltSync(12));
+const hashPassword = (password) =>  bcrypt.hashSync(password, bcrypt.genSaltSync(12));
 
-export const insertService = () =>
-  new Promise(async (resolve, reject) => {
+export const insertService = () =>  new Promise(async (resolve, reject) => {
     try {
       dataBody.forEach(async (item) => {
         let postId = v4();
@@ -26,14 +27,15 @@ export const insertService = () =>
           labelCode,
           address: item?.header?.address,
           attributeId,
-          categoryCode: "CTCH",
+          categoryCode: "CTPT",
           description: JSON.stringify(item?.mainContent?.content),
           userId,
           overviewId,
           imagesId,
         });
         await db.Attribute.create({
-          id: attributesId,
+          //check typo
+          id: attributeId,
           price: item?.header?.attributes?.price,
           acreage: item?.header?.attributes?.acreage,
           published: item?.header?.attributes?.published,
@@ -49,30 +51,19 @@ export const insertService = () =>
         });
         await db.Overview.create({
           id: overviewId,
-          code: item?.overview?.content.find((i) => i.name === "Mã tin:")
-            ?.content,
-          area: item?.overview?.content.find((i) => i.name === "Khu vực")
-            ?.content,
-          type: item?.overview?.content.find((i) => i.name === "Loại tin rao:")
-            ?.content,
-          target: item?.overview?.content.find(
-            (i) => i.name === "Đối tượng thuê:",
-          )?.content,
-          bonus: item?.overview?.content.find((i) => i.name === "Gói tin:")
-            ?.content,
-          created: item?.overview?.content.find((i) => i.name === "Ngày đăng:")
-            ?.content,
-          expired: item?.overview?.content.find(
-            (i) => i.name === "Ngày hết hạn:",
-          )?.content,
+          code: item?.overview?.content.find((i) => i.name === "Mã tin:")?.content,
+          area: item?.overview?.content.find((i) => i.name === "Khu vực")?.content,
+          type: item?.overview?.content.find((i) => i.name === "Loại tin rao:")?.content,
+          target: item?.overview?.content.find((i) => i.name === "Đối tượng thuê:",)?.content,
+          bonus: item?.overview?.content.find((i) => i.name === "Gói tin:")?.content,
+          created: item?.overview?.content.find((i) => i.name === "Ngày đăng:")?.content,
+          expired: item?.overview?.content.find((i) => i.name === "Ngày hết hạn:",)?.content,
         });
         await db.User.create({
           id: userId,
-          name: item?.contact?.content.find((i) => i.name === "Liên hệ:")
-            ?.content,
+          name: item?.contact?.content.find((i) => i.name === "Liên hệ:")?.content,
           password: hashPassword("123456"),
-          phone: item?.contact?.content.find((i) => i.name === "Điện thoại:")
-            ?.content,
+          phone: item?.contact?.content.find((i) => i.name === "Điện thoại:")?.content,
           zalo: item?.contact?.content.find((i) => i.name === "Zalo")?.content,
         });
       });
