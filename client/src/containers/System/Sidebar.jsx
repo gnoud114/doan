@@ -1,7 +1,7 @@
 import React from 'react'
 import anonAvatar from '../../assets/anon-avatar.png'
 import { useSelector, useDispatch } from 'react-redux'
-import menuSidebar from '../../ultils/menuSidebar'
+import menuSidebar from '../../utils/menuSidebar'
 import { NavLink } from 'react-router-dom'
 import * as actions from '../../store/actions'
 import { AiOutlineLogout } from 'react-icons/ai'

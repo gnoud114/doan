@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { text } from '../../ultils/constant'
+import { text } from '../../utils/constant'
 import { Province, ItemSidebar, RelatedPost } from '../../components'
 import { List, Pagination } from './index'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { formatVietnameseToString } from '../../ultils/Common/formatVietnameseToString'
+import { formatVietnameseToString } from '../../utils/Common/formatVietnameseToString'
 
 const Rental = () => {
     const { prices, areas, categories } = useSelector(state => state.app)

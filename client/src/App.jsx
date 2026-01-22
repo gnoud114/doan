@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home, Login, Rental, Homepage, DetailPost, SearchDetail } from './containers/Public'
-import { path } from './ultils/constant'
+import { path } from './utils/constant'
 import { System, CreatePost } from './containers/System'
 import * as actions from './store/actions'
 import { useDispatch, useSelector } from 'react-redux'

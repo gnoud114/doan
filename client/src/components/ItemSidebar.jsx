@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
-import icons from '../ultils/icons'
-import { formatVietnameseToString } from '../ultils/Common/formatVietnameseToString'
+import icons from '../utils/icons'
+import { formatVietnameseToString } from '../utils/Common/formatVietnameseToString'
 import { Link } from 'react-router-dom'
 import * as actions from '../store/actions'
 import { useDispatch } from 'react-redux'

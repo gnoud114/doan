@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react'
-import icons from '../ultils/icons'
+import icons from '../utils/icons'
 import { useNavigate, Link } from 'react-router-dom'
-import { formatVietnameseToString } from '../ultils/Common/formatVietnameseToString'
+import { formatVietnameseToString } from '../utils/Common/formatVietnameseToString'
 
 const indexs = [0, 1, 2, 3]
 

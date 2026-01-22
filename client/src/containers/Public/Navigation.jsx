@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { formatVietnameseToString } from '../../ultils/Common/formatVietnameseToString'
+import { formatVietnameseToString } from '../../utils/Common/formatVietnameseToString'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../store/actions'
 

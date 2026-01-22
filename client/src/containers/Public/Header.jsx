@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import logo from '../../assets/logowithoutbg.png'
 import { Button, User } from '../../components'
-import icons from '../../ultils/icons'
+import icons from '../../utils/icons'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
-import { path } from '../../ultils/constant'
+import { path } from '../../utils/constant'
 import { useSelector, useDispatch } from 'react-redux'
 import * as actions from '../../store/actions'
-import menuManage from '../../ultils/menuManage'
+import menuManage from '../../utils/menuManage'
 
 
 const { AiOutlinePlusCircle, AiOutlineLogout, BsChevronDown } = icons

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Overview, Address, Loading, Button } from '../../components'
 import { apiUploadImages } from '../../services'
-import icons from '../../ultils/icons'
-import { getCodes, getCodesArea } from '../../ultils/Common/getCodes'
+import icons from '../../utils/icons'
+import { getCodes, getCodesArea } from '../../utils/Common/getCodes'
 import { useSelector } from 'react-redux'
 
 const { BsCameraFill, ImBin } = icons
